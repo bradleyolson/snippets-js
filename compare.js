@@ -1,5 +1,11 @@
-if( typeof compare !== "undefined" ) {
-  // compares object similarity
+// USE:
+// compare(obj1, obj2, obj3)
+//
+// returns:
+//   true - if all objects passed are the same
+//   false - if all objects passed are different
+
+if( typeof compare === "undefined" ) {
 
   var compare = (function(comparison) {
     return (function() {
@@ -8,7 +14,7 @@ if( typeof compare !== "undefined" ) {
 
       if( arguments.length > 1 ) {
         for( objects in arguments ) {
-          if( !similar( this, arguments[objects] ) ) {
+          if( !compare( this, arguments[objects] ) ) {
             is_similar = false;
           }
         }
@@ -20,7 +26,7 @@ if( typeof compare !== "undefined" ) {
         if( current.hasOwnProperty(iter) ) {
           if( typeof this[iter] === "object" && typeof current[iter] === "object" ) {
             // Recur if value of object is itself an object
-            if( !similar(this[iter], current[iter]) ) {
+            if( !compare(this[iter], current[iter]) ) {
               is_similar = false;
             }
             continue;
@@ -43,4 +49,5 @@ if( typeof compare !== "undefined" ) {
       return is_similar;
     }).apply(comparison, Array.prototype.slice.call(arguments, 1));
   });
+
 }
